@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":sandboxui"))
+    implementation("com.github.langara:SandboxUi:c0d533b39a")
 }
