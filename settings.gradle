@@ -1,0 +1,3 @@
+rootProject.name='SandboxUi'
+include ':sample'
+include ':sandboxui'
