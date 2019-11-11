@@ -2,11 +2,13 @@ package pl.mareklangiewicz.sandboxui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import splitties.toast.toast
 import splitties.views.backgroundColor
 import splitties.views.dsl.core.*
+import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -19,17 +21,18 @@ class MainActivity : AppCompatActivity() {
                 add(textView { text = "Text 1 $i" }, lParams())
         }
         val view2 = verticalLayout {
-            for (i in 1..7)
-                add(textView { text = "Text 2 $i" }, lParams())
-        }
-        val box1 = SandboxUi(this, view1).apply {
-            action("xxx") { toast("xxx") }
-            action("yyy") { toast("yyy") }
-        }
-        val box2 = SandboxUi(this, view2).apply {
-            action("change color") {
-                view2.backgroundColor = getRandomColor()
+            for (i in 1..7) add(textView { text = "Text 2 $i" }, lParams())
+            addbox(textView { text = "nested"}) {
+                action("change nested text") { text = "nested ${randomHash()}"}
             }
+        }
+        val box1 = sandbox(view1) {
+            action("toast xxx") { toast("xxx") }
+            action("toast yyy") { toast("yyy") }
+            action("add random hash") { add(randomHashTextView(), lParams(matchParent)) }
+        }
+        val box2 = sandbox(view2) {
+            action("change color") { backgroundColor = getRandomColor() }
         }
         val boxes = horizontalLayout {
             add(box1.root, lParams(0, weight = 1f))
@@ -40,3 +43,6 @@ class MainActivity : AppCompatActivity() {
 }
 
 private fun getRandomColor() = Color.rgb(Random.nextInt(255), Random.nextInt(255), Random.nextInt(255))
+
+private fun randomHash() = Random.nextInt().hashCode().absoluteValue.toString(16)
+private fun View.randomHashTextView() = textView { text = randomHash() }

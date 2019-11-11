@@ -4,16 +4,16 @@ plugins {
     kotlin("android.extensions")
 }
 group = "com.github.langara.sandboxui"
-version = "0.0.1"
+version = "0.0.2"
 
 android {
     compileSdkVersion(Vers.androidCompileSdk)
 
     defaultConfig {
-        minSdkVersion(Vers.androidMinSdk)
+        minSdkVersion(21)
         targetSdkVersion(Vers.androidTargetSdk)
-        versionCode = 100
-        versionName = "0.0.1"
+        versionCode = 200
+        versionName = "0.0.2"
     }
 }
 
