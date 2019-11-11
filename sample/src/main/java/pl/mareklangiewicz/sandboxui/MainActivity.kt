@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import splitties.dimensions.dip
 import splitties.toast.toast
 import splitties.views.backgroundColor
 import splitties.views.dsl.core.*
+import splitties.views.padding
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             action("add random hash") { add(randomHashTextView(), lParams(matchParent)) }
         }
         val box2 = sandbox(view2) {
+            frame.padding = dip(10)
             action("change color") { backgroundColor = getRandomColor() }
         }
         val boxes = horizontalLayout {

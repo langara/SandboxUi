@@ -14,23 +14,20 @@ import splitties.views.padding
 import splitties.views.textColorResource
 
 @SuppressLint("SetTextI18n")
-class SandboxUi<Content: View>(
-    override val ctx: Context,
-    val content: Content,
-    name: String = content::class.simpleName ?: ""
-) : Ui {
+class SandboxUi<Content: View>
+    (override val ctx: Context, val content: Content, atitle: String = content::class.simpleName ?: "") : Ui {
 
-    private val nameView = label(name)
-    private val eyeView = label("\u2609")
-    private val dotsView = label("\u25cf\u25cf\u25cf")
+    val title = label(atitle)
+    val eye = label("\u2609")
+    val dots = label("\u25cf\u25cf\u25cf")
 
-    private val headerView = horizontalLayout {
-        add(nameView, lParams(0, weight = 1f))
-        add(eyeView, lParams())
-        add(dotsView, lParams())
+    val header = horizontalLayout {
+        add(title, lParams(0, weight = 1f))
+        add(eye, lParams())
+        add(dots, lParams())
     }
 
-    private val contentFrameView = frameLayout {
+    val frame = frameLayout {
         background = drawable(R.drawable.sandbox_ui_back)
         add(content, lParams(matchParent, matchParent))
     }
@@ -38,8 +35,8 @@ class SandboxUi<Content: View>(
     override val root = verticalLayout {
         background = drawable(R.drawable.sandbox_ui_back)
         padding = dip(4)
-        add(headerView, lParams(matchParent))
-        add(contentFrameView, lParams(matchParent, matchParent))
+        add(header, lParams(matchParent))
+        add(frame, lParams(matchParent, matchParent))
     }
 
     private val actions = mutableListOf<Pair<String, Content.() -> Unit>>()
@@ -49,40 +46,39 @@ class SandboxUi<Content: View>(
         actions += name to block
     }
 
-    private val menu = PopupMenu(ctx, dotsView).apply {
+    private val menu = PopupMenu(ctx, dots).apply {
         setOnMenuItemClickListener { actions[it.order].second.invoke(content); true }
     }
 
     init {
-        nameView.onClick { content.isVisible = !content.isVisible }
-        eyeView.onClick { content.isVisible = !content.isVisible }
-        dotsView.onClick { menu.show() }
+        eye.onClick { content.isVisible = !content.isVisible }
+        dots.onClick { menu.show() }
     }
 }
 
 fun <Content: View> Context.sandbox(
     content: Content,
-    name: String = content::class.simpleName ?: "",
+    title: String = content::class.simpleName ?: "",
     initBox: SandboxUi<Content>.() -> Unit = {}
-) = SandboxUi(this, content, name).apply(initBox)
+) = SandboxUi(this, content, title).apply(initBox)
 
 fun <Content: View> View.sandbox(
     content: Content,
-    name: String = content::class.simpleName ?: "",
+    title: String = content::class.simpleName ?: "",
     initBox: SandboxUi<Content>.() -> Unit = {}
-) = context.sandbox(content, name, initBox)
+) = context.sandbox(content, title, initBox)
 
 fun <Content: View> Ui.sandbox(
     content: Content,
-    name: String = content::class.simpleName ?: "",
+    title: String = content::class.simpleName ?: "",
     initBox: SandboxUi<Content>.() -> Unit = {}
-) = ctx.sandbox(content, name, initBox)
+) = ctx.sandbox(content, title, initBox)
 
 fun <Content: View> LinearLayout.addbox(
     content: Content,
-    name: String = content::class.simpleName ?: "",
+    title: String = content::class.simpleName ?: "",
     initBox: SandboxUi<Content>.() -> Unit = {}
-) = sandbox(content, name, initBox).also { add(it.root, lParams(matchParent)) }
+) = sandbox(content, title, initBox).also { add(it.root, lParams(matchParent)) }
 
 
 private fun Ui.label(text: String) = textView {
