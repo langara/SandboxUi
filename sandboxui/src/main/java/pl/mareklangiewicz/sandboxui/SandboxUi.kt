@@ -18,12 +18,10 @@ class SandboxUi<Content: View>
     (override val ctx: Context, val content: Content, atitle: String = content::class.simpleName ?: "") : Ui {
 
     val title = label(atitle)
-    val eye = label("\u2609")
-    val dots = label("\u25cf\u25cf\u25cf")
+    val dots = label("\u25cf\u25cf")
 
     val header = horizontalLayout {
         add(title, lParams(0, weight = 1f))
-        add(eye, lParams())
         add(dots, lParams())
     }
 
@@ -51,7 +49,7 @@ class SandboxUi<Content: View>
     }
 
     init {
-        eye.onClick { content.isVisible = !content.isVisible }
+        title.onClick { content.isVisible = !content.isVisible }
         dots.onClick { menu.show() }
     }
 }
@@ -83,7 +81,8 @@ fun <Content: View> LinearLayout.addbox(
 
 private fun Ui.label(text: String) = textView {
     this.text = text
+    textSize = 12f
     isSingleLine = true
-    padding = dip(4)
+    padding = dip(2)
     textColorResource = android.R.color.black
 }

@@ -17,4 +17,5 @@ android {
 
 dependencies {
     implementation(project(":sandboxui"))
+    implementation(Deps.splitties)
 }
