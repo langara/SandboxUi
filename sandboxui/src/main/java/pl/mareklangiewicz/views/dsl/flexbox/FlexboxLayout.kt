@@ -16,44 +16,28 @@ import kotlin.contracts.contract
 
 // FlexboxLayout
 
-@ExperimentalContracts
 inline fun Context.flexboxLayout(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,
     initView: FlexboxLayout.() -> Unit = {}
-): FlexboxLayout {
-    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
-    return view(::FlexboxLayout, id, theme, initView)
-}
+) = view(::FlexboxLayout, id, theme, initView)
 
-@ExperimentalContracts
 inline fun View.flexboxLayout(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,
     initView: FlexboxLayout.() -> Unit = {}
-): FlexboxLayout {
-    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
-    return context.flexboxLayout(id, theme, initView)
-}
+) = context.flexboxLayout(id, theme, initView)
 
-@ExperimentalContracts
 inline fun Ui.flexboxLayout(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,
     initView: FlexboxLayout.() -> Unit = {}
-): FlexboxLayout {
-    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
-    return ctx.flexboxLayout(id, theme, initView)
-}
+) = ctx.flexboxLayout(id, theme, initView)
 
 
-@ExperimentalContracts
 inline fun FlexboxLayout.lParams(
     width: Int = wrapContent,
     height: Int = wrapContent,
     initParams: FlexboxLayout.LayoutParams.() -> Unit = {}
-): FlexboxLayout.LayoutParams {
-    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
-    return FlexboxLayout.LayoutParams(width, height).apply(initParams)
-}
+) = FlexboxLayout.LayoutParams(width, height).apply(initParams)
 

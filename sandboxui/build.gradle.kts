@@ -19,9 +19,8 @@ android {
 
 dependencies {
     implementation(Deps.kotlinStdlib7)
-    implementation(Deps.kotlinReflect)
     implementation(Deps.splitties)
-    implementation(Deps.androidxFlexboxLayout)
+    api(Deps.androidxFlexboxLayout)
 }
 
 apply(from = "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle")
