@@ -4,6 +4,9 @@
     <bytecodeTargetLevel>
       <module name="sample" target="1.7" />
       <module name="sandboxui" target="1.7" />
+      <module name="SandboxUi.buildSrc" target="1.8" />
+      <module name="SandboxUi.sample" target="1.7" />
+      <module name="SandboxUi.sandboxui" target="1.7" />
       <module name="SandboxUi_buildSrc" target="1.8" />
     </bytecodeTargetLevel>
   </component>
