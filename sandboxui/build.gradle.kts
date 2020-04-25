@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(Vers.androidTargetSdk)
-        versionCode = 500
-        versionName = "0.0.5"
+        versionCode = 600
+        versionName = "0.0.6"
     }
 }
 
